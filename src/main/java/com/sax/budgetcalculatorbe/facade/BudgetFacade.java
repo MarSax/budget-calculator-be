@@ -30,7 +30,6 @@ public class BudgetFacade {
     }
 
     public BudgetDto saveOrUpdate(BudgetDto budgetDto) {
-        Budget oldBudget = this.budgetService.findById(budgetDto.getId());
         return this.budgetMapper.toDto(this.budgetService.saveOrUpdate(this.budgetMapper.toEntity(budgetDto)));
     }
 

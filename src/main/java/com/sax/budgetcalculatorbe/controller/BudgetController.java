@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(name = "rest/budgets")
+@RequestMapping("/rest/budgets")
 public class BudgetController {
     private final BudgetFacade budgetFacade;
 
