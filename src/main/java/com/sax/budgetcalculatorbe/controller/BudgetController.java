@@ -4,8 +4,7 @@ import com.sax.budgetcalculatorbe.dto.BudgetDto;
 import com.sax.budgetcalculatorbe.facade.BudgetFacade;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,19 +17,28 @@ public class BudgetController {
         this.budgetFacade = budgetFacade;
     }
 
+    @GetMapping
     public ResponseEntity<List<BudgetDto>> findAll() {
         return new ResponseEntity<>(this.budgetFacade.findAll(), HttpStatus.OK);
     }
 
-    public ResponseEntity<BudgetDto> findById(Long id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<BudgetDto> findById(@PathVariable Long id) {
         return new ResponseEntity<>(this.budgetFacade.findById(id), HttpStatus.OK);
     }
 
-    public ResponseEntity<BudgetDto> saveOrUpdate(BudgetDto budgetDto) {
+    @PostMapping("/save")
+    public ResponseEntity<BudgetDto> save(@RequestBody BudgetDto budgetDto) {
         return new ResponseEntity<>(this.budgetFacade.saveOrUpdate(budgetDto), HttpStatus.CREATED);
     }
 
-    public ResponseEntity<Void> delete(Long id) {
+    @PutMapping("/update")
+    public ResponseEntity<BudgetDto> update(@RequestBody BudgetDto budgetDto) {
+        return new ResponseEntity<>(this.budgetFacade.saveOrUpdate(budgetDto), HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         this.budgetFacade.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
